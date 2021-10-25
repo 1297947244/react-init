@@ -5,10 +5,10 @@ const sftp = new Client()
 const localPath = path.join(__dirname, '../dist').replace(/\\/g, '/')
 const remotePath = '/html/react'
 sftp.connect({
-  host: '101.34.20.64',
+  host: '',
   port: 22,
   username: 'root',
-  password: 'Xiong0911chao!'
+  password: ''
 }).then(() => {
   console.log('连接成功')
   return sftp.rmdir(`${remotePath}`, true)
