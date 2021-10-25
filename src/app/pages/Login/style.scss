@@ -1,0 +1,17 @@
+
+.login_btn {
+  width: 100%;
+  height: 40px;
+}
+.login_form_forgot {
+  float: right;
+}
+.special_form_item {
+  width: 100%;
+  margin-left: 80px;
+}
+:global {
+  .login_modal .ant-modal-body {
+    padding-top: 60px;
+  }
+}

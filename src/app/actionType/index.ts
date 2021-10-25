@@ -1,0 +1,1 @@
+export const ININ_HOME_DATA = 'inin_home_data'
