@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Carousel } from 'antd';
 import { RootState } from 'app/reducers';
 import { getArticleList } from 'app/utils/fetch';
-import style from './style.scss';
+import styles from './style.scss';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -30,24 +30,24 @@ const Home = () => {
   // 图片轮播
 
   return (
-    <div className={style.normal}>
-      <h3>你好-{showMenu ? 'true' : 'false'}</h3>
+    <div className={styles.normal}>
+      <h3 className={styles.title}>你好-{showMenu ? 'true' : 'false'}</h3>
       {infoList[0] && infoList[0].workName}
       <Button type="primary" danger>
         提交
       </Button>
-      <Carousel autoplay>
+      <Carousel autoplay={false}>
         <div>
-          <h3 className={style.car_head}>1</h3>
+          <h3 className={styles.car_head}>1</h3>
         </div>
         <div>
-          <h3 className={style.car_head}>2</h3>
+          <h3 className={styles.car_head}>2</h3>
         </div>
         <div>
-          <h3 className={style.car_head}>3</h3>
+          <h3 className={styles.car_head}>3</h3>
         </div>
         <div>
-          <h3 className={style.car_head}>4</h3>
+          <h3 className={styles.car_head}>4</h3>
         </div>
       </Carousel>
     </div>

@@ -69,6 +69,28 @@ module.exports = {
           'ts-loader'
         ].filter(Boolean)
       },
+      // 处理 antd css
+      {
+        test: /\.less$/,
+        include: include_css,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader" // translates CSS into CommonJS 
+          },
+          {
+            loader: "less-loader", // compiles Less to CSS  
+            options: {
+              sourceMap: true,
+              modifyVars: { // antd 主题颜色
+                'primary-color': '#FF704F',
+                'link-color': '#FF704F', // 'border-radius-base': '2px',  
+              },
+              javascriptEnabled: true,
+            }
+          }
+        ]
+      },
       // css, scss
       {
         test: /\.s?css$/,
@@ -76,7 +98,7 @@ module.exports = {
           path.resolve(__dirname, 'node_modules')
         ],
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -105,21 +127,6 @@ module.exports = {
             }
           },
           'sass-loader',
-        ],
-      },
-      // 处理 antd css
-      {
-        test: /\.css$/,
-        include: include_css,
-        use: [
-          require.resolve('style-loader'),
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 3,
-              modules: false,
-            },
-          }
         ],
       },
       // static assets
@@ -166,8 +173,8 @@ module.exports = {
         },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
+          // name: 'vendor',
           chunks: 'all',
-          // filename: isProduction ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
           priority: -10
         }
       }
@@ -175,7 +182,6 @@ module.exports = {
     runtimeChunk: true
   },
   plugins: [
-    // 编译时设置全局变量
     new webpack.DefinePlugin({
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
@@ -200,9 +206,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: './css/[name].css',
-      chunkFilename: '[id].css'
-      // disable: !isProduction
+      chunkFilename: './css/[contenthash].css'
     }),
     new CopyPlugin({
       patterns: [{
@@ -224,5 +228,4 @@ module.exports = {
   },
   // https://webpack.js.org/configuration/devtool/
   devtool: isProduction ? false : 'cheap-module-eval-source-map',
-
 };

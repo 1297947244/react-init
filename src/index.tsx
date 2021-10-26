@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
 import store from './app/store';
 import { App } from './app/routes';
-import 'antd/dist/antd.css';
+require('antd/dist/antd.less');
 import './app/commons/css/common.scss';
 
 // prepare store
